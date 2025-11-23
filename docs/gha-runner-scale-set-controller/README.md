@@ -43,6 +43,53 @@ You can follow [this troubleshooting guide](https://docs.github.com/en/actions/h
 
 ## Changelog
 
+### 0.13.0
+
+1. Remove workflow actions version comments since upgrades are done via dependabot [#4161](https://github.com/actions/actions-runner-controller/pull/4161)
+1. Fix image pull secrets list arguments in the chart [#4164](https://github.com/actions/actions-runner-controller/pull/4164)
+1. Update example GitHub URLs in values.yaml to include an example for enterprise account-level runners [#4181](https://github.com/actions/actions-runner-controller/pull/4181)
+1. docs: fix repo path typo [#4229](https://github.com/actions/actions-runner-controller/pull/4229)
+1. Remove deprecated preserveUnknownFields from CRDs [#4135](https://github.com/actions/actions-runner-controller/pull/4135)
+1. Add workflow name and target labels [#4240](https://github.com/actions/actions-runner-controller/pull/4240)
+1. docs: fix broken Grafana dashboard JSON path [#4270](https://github.com/actions/actions-runner-controller/pull/4270)
+1. Ensure ephemeral runner is deleted from the service on exit != 0 [#4260](https://github.com/actions/actions-runner-controller/pull/4260)
+1. Remove JIT config from ephemeral runner status field [#4191](https://github.com/actions/actions-runner-controller/pull/4191)
+1. Remove ephemeral runner when exit code != 0 and is patched with the job [#4239](https://github.com/actions/actions-runner-controller/pull/4239)
+1. Bump the gomod group across 1 directory with 4 updates [#4277](https://github.com/actions/actions-runner-controller/pull/4277)
+1. Bump all dependencies [#4266](https://github.com/actions/actions-runner-controller/pull/4266)
+
+
+### 0.12.1
+
+1. Fix indentation of startupProbe attributes in dind sidecar [#4126](https://github.com/actions/actions-runner-controller/pull/4126)
+1. Remove duplicate float64 call [#4139](https://github.com/actions/actions-runner-controller/pull/4139)
+1. Fix dind sidecar template [#4128](https://github.com/actions/actions-runner-controller/pull/4128)
+1. Remove check if runner exists after exit code 0 [#4142](https://github.com/actions/actions-runner-controller/pull/4142)
+1. Explicitly requeue during backoff ephemeral runner [#4152](https://github.com/actions/actions-runner-controller/pull/4152)
+
+### 0.12.0
+
+1. Allow use of client id as an app id [#4057](https://github.com/actions/actions-runner-controller/pull/4057)
+1. Relax version requirements to allow patch version mismatch [#4080](https://github.com/actions/actions-runner-controller/pull/4080)
+1. Refactor resource naming removing unnecessary calculations [#4076](https://github.com/actions/actions-runner-controller/pull/4076)
+1. Fix busy runners metric [#4016](https://github.com/actions/actions-runner-controller/pull/4016)
+1. Include more context to errors raised by github/actions client [#4032](https://github.com/actions/actions-runner-controller/pull/4032)
+1. Revised dashboard [#4022](https://github.com/actions/actions-runner-controller/pull/4022)
+1. feat(helm): move dind to sidecar [#3842](https://github.com/actions/actions-runner-controller/pull/3842)
+1. Pin third party actions [#3981](https://github.com/actions/actions-runner-controller/pull/3981)
+1. Fix docker lint warnings [#4074](https://github.com/actions/actions-runner-controller/pull/4074)
+1. Bump the gomod group across 1 directory with 7 updates [#4008](https://github.com/actions/actions-runner-controller/pull/4008)
+1. Bump go version [#4075](https://github.com/actions/actions-runner-controller/pull/4075)
+1. Add job_workflow_ref label to listener metrics [#4054](https://github.com/actions/actions-runner-controller/pull/4054)
+1. Bump github.com/cloudflare/circl from 1.6.0 to 1.6.1 [#4118](https://github.com/actions/actions-runner-controller/pull/4118)
+1. Avoid nil point when config.Metrics is nil and expose all metrics if none are configured [#4101](https://github.com/actions/actions-runner-controller/pull/4101)
+1. Bump github.com/golang-jwt/jwt/v5 from 5.2.1 to 5.2.2 [#4120](https://github.com/actions/actions-runner-controller/pull/4120)
+1. Add startup probe to dind side-car [#4117](https://github.com/actions/actions-runner-controller/pull/4117)
+1. Delete config secret when listener pod gets deleted [#4033](https://github.com/actions/actions-runner-controller/pull/4033)
+1. Add response body to error when fetching access token [#4005](https://github.com/actions/actions-runner-controller/pull/4005)
+1. Azure Key Vault integration to resolve secrets [#4090](https://github.com/actions/actions-runner-controller/pull/4090)
+1. Create backoff mechanism for failed runners and allow re-creation of failed ephemeral runners [#4059](https://github.com/actions/actions-runner-controller/pull/4059)
+
 ### 0.11.0
 
 1. Add events role permission to leader_election_role [#3988](https://github.com/actions/actions-runner-controller/pull/3988)

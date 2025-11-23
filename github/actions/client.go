@@ -1060,10 +1060,15 @@ func (c *Client) fetchAccessToken(ctx context.Context, gitHubConfigURL string, c
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
+		errMsg := fmt.Sprintf("failed to get access token for GitHub App auth (%v)", resp.Status)
+		if body, err := io.ReadAll(resp.Body); err == nil {
+			errMsg = fmt.Sprintf("%s: %s", errMsg, string(body))
+		}
+
 		return nil, &GitHubAPIError{
 			StatusCode: resp.StatusCode,
 			RequestID:  resp.Header.Get(HeaderGitHubRequestID),
-			Err:        fmt.Errorf("failed to get access token for GitHub App auth: %v", resp.Status),
+			Err:        errors.New(errMsg),
 		}
 	}
 
@@ -1212,7 +1217,7 @@ func createJWTForGitHubApp(appAuth *GitHubAppAuth) (string, error) {
 	claims := &jwt.RegisteredClaims{
 		IssuedAt:  jwt.NewNumericDate(issuedAt),
 		ExpiresAt: jwt.NewNumericDate(expiresAt),
-		Issuer:    strconv.FormatInt(appAuth.AppID, 10),
+		Issuer:    appAuth.AppID,
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)

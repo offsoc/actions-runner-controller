@@ -1,7 +1,6 @@
 package actionsgithubcom
 
 import (
-	"context"
 	"fmt"
 	"strings"
 	"testing"
@@ -28,7 +27,7 @@ func TestLabelPropagation(t *testing.T) {
 				"directly.excluded.org/arbitrary": "not-excluded-value",
 			},
 			Annotations: map[string]string{
-				runnerScaleSetIdAnnotationKey:         "1",
+				runnerScaleSetIDAnnotationKey:         "1",
 				AnnotationKeyGitHubRunnerGroupName:    "test-group",
 				AnnotationKeyGitHubRunnerScaleSetName: "test-scale-set",
 			},
@@ -82,12 +81,7 @@ func TestLabelPropagation(t *testing.T) {
 			Name: "test",
 		},
 	}
-	listenerSecret := &corev1.Secret{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "test",
-		},
-	}
-	listenerPod, err := b.newScaleSetListenerPod(listener, &corev1.Secret{}, listenerServiceAccount, listenerSecret, nil)
+	listenerPod, err := b.newScaleSetListenerPod(listener, &corev1.Secret{}, listenerServiceAccount, nil)
 	require.NoError(t, err)
 	assert.Equal(t, listenerPod.Labels, listener.Labels)
 
@@ -109,7 +103,7 @@ func TestLabelPropagation(t *testing.T) {
 			Name: "test",
 		},
 	}
-	pod := b.newEphemeralRunnerPod(context.TODO(), ephemeralRunner, runnerSecret)
+	pod := b.newEphemeralRunnerPod(ephemeralRunner, runnerSecret)
 	for key := range ephemeralRunner.Labels {
 		assert.Equal(t, ephemeralRunner.Labels[key], pod.Labels[key])
 	}
@@ -129,7 +123,7 @@ func TestGitHubURLTrimLabelValues(t *testing.T) {
 				LabelKeyKubernetesVersion: "0.2.0",
 			},
 			Annotations: map[string]string{
-				runnerScaleSetIdAnnotationKey:         "1",
+				runnerScaleSetIDAnnotationKey:         "1",
 				AnnotationKeyGitHubRunnerGroupName:    "test-group",
 				AnnotationKeyGitHubRunnerScaleSetName: "test-scale-set",
 			},
@@ -195,7 +189,7 @@ func TestOwnershipRelationships(t *testing.T) {
 				LabelKeyKubernetesVersion: "0.2.0",
 			},
 			Annotations: map[string]string{
-				runnerScaleSetIdAnnotationKey:         "1",
+				runnerScaleSetIDAnnotationKey:         "1",
 				AnnotationKeyGitHubRunnerGroupName:    "test-group",
 				AnnotationKeyGitHubRunnerScaleSetName: "test-scale-set",
 				annotationKeyValuesHash:               "test-hash",
@@ -238,7 +232,7 @@ func TestOwnershipRelationships(t *testing.T) {
 			Name: "test-secret",
 		},
 	}
-	pod := b.newEphemeralRunnerPod(context.TODO(), ephemeralRunner, runnerSecret)
+	pod := b.newEphemeralRunnerPod(ephemeralRunner, runnerSecret)
 
 	// Test EphemeralRunnerPod ownership
 	require.Len(t, pod.OwnerReferences, 1, "EphemeralRunnerPod should have exactly one owner reference")
